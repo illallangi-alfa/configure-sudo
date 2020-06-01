@@ -1,0 +1,16 @@
+---
+- name: "Create directories"
+  file:
+    path:  "{{ item.path }}"
+    state: "directory"
+  with_items: "{{ sudo.directories[(ansible_os_family | lower) + '_' + (ansible_architecture | lower)] | default([]) }}"
+  tags:
+    - "sudo"
+
+- name: "Update templates"
+  template:
+    src:  "{{ item.src | default((item.dest | basename ()) + '.j2')}}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ sudo.templates[(ansible_os_family | lower) + '_' + (ansible_architecture | lower)] | default([]) }}"
+  tags:
+    - "sudo"

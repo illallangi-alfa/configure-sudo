@@ -1,0 +1,12 @@
+---
+sudo:
+  directories:
+    common: &directories
+      - path:  "/etc/sudoers.d"
+    debian_armv7l: *directories
+    debian_x86_64: *directories
+  templates:
+    common: &templates
+      - dest:  "/etc/sudoers.d/010_ssh_auth_sock-export"
+    debian_armv7l: *templates
+    debian_x86_64: *templates
